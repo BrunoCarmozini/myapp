@@ -5,79 +5,259 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Spotify Clone',
-      theme: ThemeData.dark(),
-      home: const SpotifyHomePage(),
+      home: const SpotifyUI(),
     );
   }
 }
 
-class SpotifyHomePage extends StatelessWidget {
-  const SpotifyHomePage({Key? key}) : super(key: key);
+class SpotifyUI extends StatelessWidget {
+  const SpotifyUI({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Boa noite'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.history)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-        ],
         backgroundColor: Colors.black,
+        elevation: 0,
+        title: const Text(
+          'Boa noite',
+          style: TextStyle(
+              color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications, color: Colors.white),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.sync, color: Colors.white),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.white),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Últimos Álbuns',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                height: 60,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/metalica.jpg',
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const [
+                          Text(
+                            'Enter Sandman',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'Metallica',
+                            style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 12,
+                                fontWeight: FontWeight.normal),
+                          ),
+                        ],
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.computer, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.volume_up, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.favorite_border,
+                          color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.play_arrow, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: SizedBox(
+                height: 150,
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  childAspectRatio: 4,
+                  children: const [
+                    MiniAlbumTile('Hungria', 'assets/hungria.jpg'),
+                    MiniAlbumTile('Henrique e Juliano', 'assets/henrique.jpg'),
+                    MiniAlbumTile('Matuê', 'assets/matue.jpg'),
+                    MiniAlbumTile('Ana Castela', 'assets/ana.jpg'),
+                    MiniAlbumTile('AC / DC', 'assets/acdc.jpg'),
+                    MiniAlbumTile('Imagine Dragons', 'assets/dragons.jpg'),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage('assets/metalica.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Novo lançamento de',
+                            style: TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            'Metallica',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey[800],
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                height: 100,
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomLeft: Radius.circular(8),
+                      ),
+                      child: Image.asset(
+                        'assets/1.jpg',
+                        width: 80,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        Text(
+                          'Coração de Aço',
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                        Text(
+                          'Single - Hungria',
+                          style: TextStyle(color: Colors.white70, fontSize: 14),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: const Icon(Icons.favorite_border,
+                          color: Colors.white),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.play_arrow, color: Colors.white),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            const SectionTitle(title: 'Faxina que eu te escuto'),
             SizedBox(
               height: 150,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  AlbumTile('Hungria', 'assets/hungria.jpg'),
-                  AlbumTile('Matue', 'assets/matue.jpg'),
-                  AlbumTile('Tuyo', 'assets/album3.png'),
-                  AlbumTile('Drama', 'assets/album4.png'),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                children: const [
+                  ImageTile('assets/album1.jpg'),
+                  SizedBox(width: 16),
+                  ImageTile('assets/album2.jpg'),
+                  SizedBox(width: 16),
+                  ImageTile('assets/album3.jpg'),
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Novo Lançamento',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            const SizedBox(height: 16),
+            const SectionTitle(title: 'Playlist do Momento'),
+            SizedBox(
+              height: 150,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                children: const [
+                  AlbumTile('Sofrência para Sempre', 'assets/album7.png'),
+                  AlbumTile('Aquela Batida', 'assets/album8.png'),
+                ],
               ),
             ),
-            NewReleaseTile(
-              artist: 'Metallica',
-              title: 'My Friend of Misery',
-              cover: 'assets/metallica.png',
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                'Faxina que eu te escuto',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SongListTile(
-                'Faxina com Sofrência', 'Flaira Ferro', 'assets/song1.png'),
-            SongListTile('Louca Infinita', 'Flaira Ferro', 'assets/song2.png'),
           ],
         ),
       ),
@@ -96,34 +276,111 @@ class SpotifyHomePage extends StatelessWidget {
   }
 }
 
-class AlbumTile extends StatelessWidget {
-  final String title;
-  final String imagePath;
-
-  const AlbumTile(this.title, this.imagePath, {Key? key}) : super(key: key);
+class MiniPlayer extends StatelessWidget {
+  const MiniPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Column(
-        children: [
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(imagePath),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[800],
+          borderRadius: BorderRadius.circular(8),
+        ),
+        height: 60,
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                'assets/metalica.jpg',
+                width: 50,
+                height: 50,
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.circular(8),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Enter Sandman',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Metallica',
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.computer, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.volume_up, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.favorite_border, color: Colors.white),
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(Icons.play_arrow, color: Colors.white),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MiniAlbumTile extends StatelessWidget {
+  final String albumName;
+  final String imagePath;
+
+  const MiniAlbumTile(this.albumName, this.imagePath, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              imagePath,
+              height: 120,
+              width: 150,
+              fit: BoxFit.cover,
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            title,
-            style: const TextStyle(fontSize: 14),
-            textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              albumName,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+            ),
           ),
         ],
       ),
@@ -131,89 +388,80 @@ class AlbumTile extends StatelessWidget {
   }
 }
 
-class NewReleaseTile extends StatelessWidget {
-  final String artist;
+class SectionTitle extends StatelessWidget {
   final String title;
-  final String cover;
 
-  const NewReleaseTile({
-    required this.artist,
-    required this.title,
-    required this.cover,
-    Key? key,
-  }) : super(key: key);
+  const SectionTitle({required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(cover),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Novo lançamento de $artist',
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                title,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const Spacer(),
-          IconButton(
-            icon: const Icon(Icons.play_arrow),
-            onPressed: () {},
-          ),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
 }
 
-class SongListTile extends StatelessWidget {
-  final String title;
-  final String artist;
-  final String cover;
+class ImageTile extends StatelessWidget {
+  final String imagePath;
 
-  const SongListTile(this.title, this.artist, this.cover, {Key? key})
-      : super(key: key);
+  const ImageTile(this.imagePath, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Container(
-        height: 60,
-        width: 60,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(cover),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(8),
-        ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        imagePath,
+        height: 100,
+        width: 100,
+        fit: BoxFit.cover,
       ),
-      title: Text(title),
-      subtitle: Text(artist),
-      trailing: IconButton(
-        icon: const Icon(Icons.favorite_border),
-        onPressed: () {},
+    );
+  }
+}
+
+class AlbumTile extends StatelessWidget {
+  final String albumName;
+  final String imagePath;
+
+  const AlbumTile(this.albumName, this.imagePath, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
+              imagePath,
+              height: 120,
+              width: 150,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Text(
+              albumName,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }
